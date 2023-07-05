@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('specialist_id');
-            $table->foreignId('user_id');
+            $table->foreignId('specialist_id')->nullable()->index('fk_doctors_to_specialist');
+            $table->foreignId('user_id')->nullable()->index('fk_doctors_to_users');
             $table->string('name');
             $table->string('fee');
             $table->longText('photo')->nullable();

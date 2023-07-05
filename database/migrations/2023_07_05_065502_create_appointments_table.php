@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id');
-            $table->foreignId('user_id');
-            $table->foreignId('consultation_id');
+            $table->foreignId('doctor_id')->nullable()->index('fk_appointments_to_doctors');
+            $table->foreignId('user_id')->nullable()->index('fk_appointments_to_users');
+            $table->foreignId('consultation_id')->nullable()->index('fk_appointments_to_consultations');
             $table->enum('level', [1, 2, 3]);
-            $table->date('date');
-            $table->time('time');
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
             $table->enum('status', [1, 2]);
             $table->timestamps();
             $table->softDeletes();

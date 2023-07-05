@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('detail_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('type_user_id');
+            $table->foreignId('user_id')->nullable()->index('fk_detail_users_to_users');
+            $table->foreignId('type_user_id')->nullable()->index('fk_detail_users_to_type_users');
             $table->string('contact')->nullable();
             $table->longText('address')->nullable();
             $table->longText('photo')->nullable();
