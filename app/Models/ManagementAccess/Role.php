@@ -19,4 +19,16 @@ class Role extends Model
     ];
 
     protected $guarded = ['id'];
+
+    //satu role dimiliki oleh banyak  role users
+    public function role_user()
+    {
+        return $this->hasMany(RoleUser::class . 'role_id');
+    }
+
+    //satu role bisa memiliki banyak permission roles
+    public function permissions_role()
+    {
+        return $this->hasMany(PermissionRole::class . 'role_id');
+    }
 }

@@ -18,4 +18,10 @@ class Consultation extends Model
     ];
 
     protected $guarded = ['id'];
+
+    //satu consultation bisa dimiliki oleh banyak appointment
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class, 'consultation_id');
+    }
 }

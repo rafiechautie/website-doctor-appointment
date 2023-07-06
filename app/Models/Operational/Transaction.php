@@ -18,4 +18,10 @@ class Transaction extends Model
     ];
 
     protected $guarded = ['id'];
+
+    //satu transaction hanya bisa dimiliki oleh satu appointment
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class, 'appointment_id', 'id');
+    }
 }

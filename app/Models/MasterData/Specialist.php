@@ -2,6 +2,7 @@
 
 namespace App\Models\MasterData;
 
+use App\Models\Operational\Doctor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,4 +19,10 @@ class Specialist extends Model
     ];
 
     protected $guarded = ['id'];
+
+    //satu gelar specialist bisa dimiliki oleh banyak doctor
+    public function doctor()
+    {
+        return $this->hasMany(Doctor::class, 'specialist_id');
+    }
 }

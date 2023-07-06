@@ -19,4 +19,16 @@ class PermissionRole extends Model
     ];
 
     protected $guarded = ['id'];
+
+    //satu permission roles hanya bisa memiliki satu permission
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class, 'permission_id', 'id');
+    }
+
+    //satu permission roles hanya bisa memiliki satu role
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
 }

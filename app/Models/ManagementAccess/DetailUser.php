@@ -2,7 +2,10 @@
 
 namespace App\Models\ManagementAccess;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DetailUser extends Model
@@ -22,4 +25,16 @@ class DetailUser extends Model
     ];
 
     protected $guarded = ['id'];
+
+    //satu detail user punya satu user
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    //satu detail user memiliki satu type user
+    public function type_user(): BelongsTo
+    {
+        return $this->belongsTo(TypeUser::class, 'type_user_id', 'id');
+    }
 }

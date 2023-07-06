@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ManagementAccess\DetailUser;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -13,21 +13,21 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens;
-    use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    use SoftDeletes;
+
+    public $table = 'users';
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
+
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -58,4 +58,28 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    //satu user punya satu detail user
+    public function detail_users()
+    {
+        return $this->hasOne(DetailUser::class, 'user_id');
+    }
+
+    //satu user bisa punya banyak role user
+    public function role_users()
+    {
+        return $this->hasMany(RoleUser::class, 'user_id');
+    }
+
+    //satu user bisa memiliki banyak appointment
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'user_id');
+    }
+
+    //satu user hanya bisa dilayani oleh satu doctor dalam satu waktu
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class, 'user_id');
+    }
 }

@@ -19,4 +19,10 @@ class Permission extends Model
     ];
 
     protected $guarded = ['id'];
+
+    //satu permission bisa memiliki banyak permission roles
+    public function permission_role()
+    {
+        return $this->hasMany(PermissionRole::class, 'permission_id');
+    }
 }
