@@ -10,7 +10,7 @@ class TypeUser extends Model
 {
     use SoftDeletes;
 
-    public $table = 'type_users ';
+    public $table = 'type_users';
 
     protected $dates = [
         'created_at',

@@ -10,7 +10,7 @@ class Specialist extends Model
 {
     use SoftDeletes;
 
-    public $table = 'specialists';
+    public $table = 'specialist';
 
     protected $dates = [
         'created_at',
