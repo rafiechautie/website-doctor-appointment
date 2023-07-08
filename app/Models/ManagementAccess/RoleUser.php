@@ -29,6 +29,6 @@ class RoleUser extends Model
     //satu role user bisa punya banyak role
     public function role()
     {
-        return $this->belongsToMany(Role::class, 'role_id', 'id');
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 }
