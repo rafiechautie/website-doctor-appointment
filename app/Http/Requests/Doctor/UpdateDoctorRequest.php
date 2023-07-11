@@ -11,7 +11,7 @@ class UpdateDoctorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,6 @@ class UpdateDoctorRequest extends FormRequest
             'specialist_id' => 'requeired|integer',
             'user_id' => 'requeired|integer',
             'name' => 'required|string|max:255',
-            //uniques:users -> harus unik di tabel users
             'fee' => 'required|string|max:255',
             'photo' => 'nullable|string|max:10000',
         ];

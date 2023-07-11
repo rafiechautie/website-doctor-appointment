@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Consultation;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreConsultationRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreConsultationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,13 +24,22 @@ class StoreConsultationRequest extends FormRequest
     {
         return [
             //
-            'doctor_id' => 'requeired|integer',
-            'user_id' => 'requeired|integer',
-            'consultation_id' => 'requeired|integer',
-            'level' => 'required|string|max:255',
-            'date' => 'required|date',
-            'time' => 'required|timezone:Asia/Jakarta',
-            'status' => 'required|string|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                /**
+                 *  jika nilai yang sedang divalidasi sama dengan nilai yang ada dalam kolom 'users'
+                 *  untuk entitas saat ini, validasi tersebut akan diabaikan.
+                 *  Ini memungkinkan pengguna untuk memperbarui informasi mereka tanpa
+                 *  harus memvalidasi terhadap diri mereka sendiri
+                 * 
+                 * misal user A update data email A@gmai.com, maka rule email harus unik diabaikan
+                 * jika user B update data email A@gmai.com, maka rule email dijakanlakan yang berarti user B
+                 * tidak boleh menggunakan email A@gmai.com
+                 */
+                Rule::unique('consultation')->ignore($this->consultation),
+            ],
         ];
     }
 }

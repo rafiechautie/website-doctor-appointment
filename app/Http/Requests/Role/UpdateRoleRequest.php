@@ -23,7 +23,7 @@ class UpdateRoleRequest extends FormRequest
     {
         return [
             //
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|unique:roles|max:255',
         ];
     }
 }
