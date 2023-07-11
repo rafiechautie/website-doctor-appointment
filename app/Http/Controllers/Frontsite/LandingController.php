@@ -16,11 +16,11 @@ use Illuminate\Http\Request;
 class LandingController extends Controller
 {
 
-    public function __construct()
-    {
-        //menandai bahwa landing page boleh digunakan secara full ketika user sudah login
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     //menandai bahwa landing page boleh digunakan secara full ketika user sudah login
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Display a listing of the resource.
