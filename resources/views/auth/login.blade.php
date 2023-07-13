@@ -3,12 +3,7 @@
 @section('title', 'Sign In')
 
 @section('content')
-{{-- cek apakah user sebelumnya udah login atau belom  --}}
-@if (session('status'))
-<div class="mb-4 font-medium text-sm text-green-600">
-    {{ session('status') }}
-</div>
-@endif
+
 <div class="min-h-screen">
     <div class="grid lg:grid-cols-2">
       <!-- Form-->
@@ -35,22 +30,32 @@
           </h2>
           <div class="mt-12">
 
+            {{-- cek apakah user sebelumnya udah login atau belom  --}}
+            @if (session('status'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('status') }}
+            </div>
+            @endif
             <!-- Form input -->
             <form method="POST" action="{{ route('login') }}" class="grid gap-6">
                 @csrf
-              <label class="block" value="{{ __('Email') }}" for="email">
+              <label class="block" >
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  :value="old('email')"
+                  value="{{ old('email') }}"
                   class="block w-full rounded-full py-4 text-[#1E2B4F] font-medium placeholder:text-[#AFAEC3] placeholder:font-normal px-7 border border-[#d4d4d4] focus:outline-none focus:border-[#0D63F3]"
                   placeholder="Email Address"
-                  required autofocus autocomplete="username"
+                  required 
+                  autofocus
                 />
+                @error('email')
+                <p class="text-red mb-3 text-sm">{{ $message }}</p>
+                @enderror 
               </label>
 
-              <label class="block" for="password" value="{{ __('Password') }}">
+              <label class="block">
                 <input
                   type="password"
                   id="password"
@@ -58,18 +63,20 @@
                   placeholder="Password"
                   name="password"
                   required
-                  autocomplete="current-password"
                 />
+                @error('password')
+                <p class="text-red mb-3 text-sm">{{ $message }}</p>
+                @enderror 
               </label>
               
               <div class="mt-10 grid gap-6">
-                <button href="authenticated.html"
+                <button type="submit"
                   class="text-center text-white text-lg font-medium bg-[#0D63F3] px-10 py-4 rounded-full"
                 >
                   Sign In
                 </button>
                 <a
-                  href="/register"
+                  href="{{ route('register') }}"
                   class="text-center text-lg text-[#1E2B4F] font-medium bg-[#F2F6FE] px-10 py-4 rounded-full"
                 >
                   New Account

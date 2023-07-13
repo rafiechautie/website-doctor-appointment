@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Backsite\DashboardController;
 use App\Http\Controllers\Frontsite\AppointmentController;
 use App\Http\Controllers\Frontsite\LandingController;
 use App\Http\Controllers\Frontsite\PaymentController;
@@ -28,5 +28,5 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 //kalau udah login, maka bisa akses route yang ada di dalam group ini
 //route didalam bisa diakses ketika auth:sanctumnya verified
 Route::group(['prefix' => 'backsite', 'as' => 'backsite', 'middleware' => ['auth:sanctum', 'verified']],  function () {
-    return view('dashboard');
+    Route::resource('dashboard', DashboardController::class);
 });

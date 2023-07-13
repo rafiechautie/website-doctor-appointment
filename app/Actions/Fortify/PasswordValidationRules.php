@@ -13,6 +13,7 @@ trait PasswordValidationRules
      */
     protected function passwordRules(): array
     {
+        //"confirmed" membuat validation confirmation password berjalan
         return ['required', 'string', new Password, 'confirmed'];
     }
 }

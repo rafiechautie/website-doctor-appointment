@@ -31,48 +31,88 @@
 
             <!-- Form input -->
             <form  method="POST" action="{{ route('register') }}" class="grid gap-6">
-              <label class="block" for="name" value="{{ __('Name') }}">
+              @csrf
+              <label class="block">
                 <input
                   type="text"
                   id="name"
                   class="block w-full rounded-full py-4 text-[#1E2B4F] font-medium placeholder:text-[#AFAEC3] placeholder:font-normal px-7 border border-[#d4d4d4] focus:outline-none focus:border-[#0D63F3]"
                   placeholder="Complete Name"
-                  name="name" :value="old('name')" required autofocus autocomplete="name"
+                  name="name"
+                  value="{{ old('name') }}" 
+                  required 
+                  autofocus
                 />
+                @error('name')
+                <p class="text-red mb-3 text-sm">{{ $message }}</p>
+                @enderror 
               </label>
 
-              <label class="block" for="email" value="{{ __('Email') }}">
+              {{-- <label class="block">
                 <input
-                  type="text"
+                  type="number"
                   class="block w-full rounded-full py-4 text-[#1E2B4F] font-medium placeholder:text-[#AFAEC3] placeholder:font-normal px-7 border border-[#d4d4d4] focus:outline-none focus:border-[#0D63F3]"
                   placeholder="Age"
-                  id="email"
-                  type="email" name="email" :value="old('email')" required autocomplete="username"
+                  id="age"
+                  name="age"
+                  value="{{ old('age') }}" required
                 />
-              </label>
+                @error('age')
+                <p class="text-red mb-3 text-sm">{{ $message }}</p>
+                @enderror 
+              </label> --}}
 
               <label class="block">
                 <input
                   type="email"
+                  id="email"
+                  name="email" 
+                  value="{{ old('email') }}" 
+                  required
                   class="block w-full rounded-full py-4 text-[#1E2B4F] font-medium placeholder:text-[#AFAEC3] placeholder:font-normal px-7 border border-[#d4d4d4] focus:outline-none focus:border-[#0D63F3]"
                   placeholder="Email Address"
                 />
+                @error('email')
+                <p class="text-red mb-3 text-sm">{{ $message }}</p>
+                @enderror 
               </label>
 
               <label class="block">
                 <input
                   type="password"
+                  id="password"
                   class="block w-full rounded-full py-4 text-[#1E2B4F] font-medium placeholder:text-[#AFAEC3] placeholder:font-normal px-7 border border-[#d4d4d4] focus:outline-none focus:border-[#0D63F3]"
                   placeholder="Password"
+                  name="password"
+                  value="{{ old('password') }}" 
+                  required
                 />
+                @error('password')
+                <p class="text-red mb-3 text-sm">{{ $message }}</p>
+                @enderror 
+              </label>
+
+              <label class="block">
+                <input
+                  type="password"
+                  id="password_confirmation"
+                  class="block w-full rounded-full py-4 text-[#1E2B4F] font-medium placeholder:text-[#AFAEC3] placeholder:font-normal px-7 border border-[#d4d4d4] focus:outline-none focus:border-[#0D63F3]"
+                  placeholder="Password Confirmation"
+                  name="password_confirmation" 
+                  required
+                />
+                @error('password_confirmation')
+                <p class="text-red mb-3 text-sm">{{ $message }}</p>
+                @enderror 
               </label>
               
+              
               <div class="mt-10 grid gap-6">
-                <a href="sign-up-success.html"
+                <button type="submit"
                   class="text-center text-white text-lg font-medium bg-[#0D63F3] px-10 py-4 rounded-full"
                 >
                   Continue
-                </a>
+                </button>
                 <a
                   href="/login"
                   class="text-center text-lg text-[#1E2B4F] font-medium bg-[#F2F6FE] px-10 py-4 rounded-full"
