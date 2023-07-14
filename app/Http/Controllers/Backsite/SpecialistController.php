@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Specialist\StoreSpecialistRequest;
+use App\Models\MasterData\Specialist;
 use Illuminate\Http\Request;
 
 class SpecialistController extends Controller
@@ -18,7 +20,10 @@ class SpecialistController extends Controller
     public function index()
     {
         //
-        return view('pages.backsite.master-data.specialist.index');
+        //mengambil seluruh data bedasarkan created at dan ditampilkannya descending
+        $specialist = Specialist::orderBy('created_at', 'desc')->get();
+
+        return view('pages.backsite.master-data.specialist.index', compact('specialist'));
     }
 
     /**
@@ -33,10 +38,27 @@ class SpecialistController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSpecialistRequest $request)
     {
         //
-        return abort(404);
+        // get all request from frontsite
+        $data = $request->all();
+
+        //kalau mau ambil request decara spesifik dari frontsite
+        //contoh jika yang diambil hanya pricenya saja
+        // $data = $request->price()
+        //atau
+        //$data = $request['price']
+
+        // re format before push to table
+        $data['price'] = str_replace(',', '', $data['price']);
+        $data['price'] = str_replace('IDR ', '', $data['price']);
+
+        // store to database
+        $specialist = Specialist::create($data);
+
+        alert()->success('Success Message', 'Successfully added new specialist');
+        return redirect()->route('backsite.specialist.index');
     }
 
     /**

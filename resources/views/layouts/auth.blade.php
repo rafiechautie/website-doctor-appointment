@@ -9,6 +9,9 @@
     @stack('after-style')
 </head>
 <body>
+
+  @include('sweetalert::alert')
+
     @yield('content')
     {{-- modals --}}
     {{-- if you have any modals, create here  --}}
