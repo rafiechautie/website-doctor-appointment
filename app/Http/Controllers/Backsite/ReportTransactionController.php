@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Backsite;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class ReportTransactionController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -18,7 +17,7 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        return view('pages.backsite.dashboard.index');
+        return view('pages.backsite.operational.transaction.index');
     }
 
     /**
