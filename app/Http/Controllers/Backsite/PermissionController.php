@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
+use App\Models\ManagementAccess\Permission;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
@@ -18,7 +19,11 @@ class PermissionController extends Controller
     public function index()
     {
         //
-        return view('pages.backsite.management-access.permission.index');
+        // abort_if(Gate::denies('permission_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $permission = Permission::orderBy('id', 'asc')->get();
+
+        return view('pages.backsite.management-access.permission.index', compact('permission'));
     }
 
     /**
