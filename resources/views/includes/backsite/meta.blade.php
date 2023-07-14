@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
 {{-- seo setting base --}}
-seo setting bagusnya diletakkan di frontsite, di backsite juga bagus diletakkan
+{{-- seo setting bagusnya diletakkan di frontsite, di backsite juga bagus diletakkan --}}
 
 {{-- jelasin kalau web ini adalah tentang Meet Your Doctor. Trusted & Professional. --}}
 <meta name="description" content="{{ 'Meet Your Doctor. Trusted & Professional.' }}">
