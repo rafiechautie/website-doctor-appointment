@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
+use App\Models\MasterData\Specialist;
+use App\Models\Operational\Doctor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DoctorController extends Controller
 {
@@ -18,7 +22,16 @@ class DoctorController extends Controller
     public function index()
     {
         //
-        return view('pages.backsite.operational.doctor.index');
+        // for table grid order by descending based on created at
+        $doctor = Doctor::orderBy('created_at', 'desc')->get();
+
+        // for select2 = ascending a to z
+        $specialist = Specialist::orderBy('name', 'asc')->get();
+        $user = User::whereHas('detail_user', function ($query) {
+            $query->where('type_user_id', 2);
+        })->orderBy('name', 'asc')->get();
+
+        return view('pages.backsite.operational.doctor.index', compact('doctor', 'specialist', 'user'));
     }
 
     /**
@@ -33,10 +46,37 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Doctor $doctor)
     {
         //
-        return abort(404);
+        // get all request from frontsite
+        $data = $request->all();
+
+        // re format before push to table
+        $data['fee'] = str_replace(',', '', $data['fee']);
+        $data['fee'] = str_replace('IDR ', '', $data['fee']);
+
+        // upload process here
+        $path = public_path('app/public/assets/file-doctor');
+        if (!File::isDirectory($path)) {
+            $response = Storage::makeDirectory('public/assets/file-doctor');
+        }
+
+        // change file locations
+        if (isset($data['photo'])) {
+            $data['photo'] = $request->file('photo')->store(
+                'assets/file-doctor',
+                'public'
+            );
+        } else {
+            $data['photo'] = "";
+        }
+
+        // store to database
+        $doctor = Doctor::create($data);
+
+        alert()->success('Success Message', 'Successfully added new doctor');
+        return redirect()->route('backsite.doctor.index');
     }
 
     /**
@@ -45,33 +85,85 @@ class DoctorController extends Controller
     public function show(string $id)
     {
         //
-        return abort(404);
+        return view('pages.backsite.operational.doctor.show', compact('doctor'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Doctor $doctor)
     {
         //
-        return abort(404);
+        // for select2 = ascending a to z
+        $specialist = Specialist::orderBy('name', 'asc')->get();
+        $user = User::whereHas('detail_user', function ($query) {
+            $query->where('type_user_id', 2);
+        })->orderBy('name', 'asc')->get();
+
+        return view('pages.backsite.operational.doctor.edit', compact('doctor', 'specialist', 'user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Doctor $doctor)
     {
         //
-        return abort(404);
+        // get all request from frontsite
+        $data = $request->all();
+
+        // re format before push to table
+        $data['fee'] = str_replace(',', '', $data['fee']);
+        $data['fee'] = str_replace('IDR ', '', $data['fee']);
+
+        // upload process here
+        // change format photo
+        if (isset($data['photo'])) {
+
+            // first checking old photo to delete from storage
+            $get_item = $doctor['photo'];
+
+            // change file locations
+            $data['photo'] = $request->file('photo')->store(
+                'assets/file-doctor',
+                'public'
+            );
+
+            // delete old photo from storage
+            $data_old = 'storage/' . $get_item;
+            if (File::exists($data_old)) {
+                File::delete($data_old);
+            } else {
+                File::delete('storage/app/public/' . $get_item);
+            }
+        }
+
+        // update to database
+        $doctor->update($data);
+
+        alert()->success('Success Message', 'Successfully updated doctor');
+        return redirect()->route('backsite.doctor.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Doctor $doctor)
     {
         //
-        return abort(404);
+        // first checking old file to delete from storage
+        $get_item = $doctor['photo'];
+
+        $data = 'storage/' . $get_item;
+        if (File::exists($data)) {
+            File::delete($data);
+        } else {
+            File::delete('storage/app/public/' . $get_item);
+        }
+
+        $doctor->forceDelete();
+
+        alert()->success('Success Message', 'Successfully deleted doctor');
+        return back();
     }
 }

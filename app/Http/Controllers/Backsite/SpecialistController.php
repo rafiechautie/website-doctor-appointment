@@ -57,6 +57,17 @@ class SpecialistController extends Controller
         // store to database
         $specialist = Specialist::create($data);
 
+        //store to database satu satu
+        //contoh
+        //$specialist = new Specialist
+        //$specialist->request->name;
+        //$specialist->request->description;
+        //$specialist->save();
+
+        return redirect()->route('specialist.index');
+
+        alert()->success('Success Message', 'Successfully added new specialist');
+
         alert()->success('Success Message', 'Successfully added new specialist');
         return redirect()->route('backsite.specialist.index');
     }
@@ -67,7 +78,7 @@ class SpecialistController extends Controller
     public function show(string $id)
     {
         //
-        return abort(404);
+        return view('pages.backsite.master-data.specialist.show', compact('specialist'));
     }
 
     /**
@@ -76,24 +87,47 @@ class SpecialistController extends Controller
     public function edit(string $id)
     {
         //
-        return abort(404);
+        return view('pages.backsite.master-data.specialist.edit', compact('specialist'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,  Specialist $specialist)
     {
         //
-        return abort(404);
+
+        // get all request from frontsite
+        $data = $request->all();
+
+
+        $data['price'] = str_replace(',', '', $data['price']);
+        $data['price'] = str_replace('IDR ', '', $data['price']);
+
+        // update to database
+        $specialist->update($data);
+
+        /**
+         * cara update spesifik field
+         * 
+         * $flight = Flight::find(1);
+         * $flight->name = 'Paris to London';
+         * $flight->save();
+         */
+
+        alert()->success('Success Message', 'Successfully updated specialist');
+        return redirect()->route('backsite.specialist.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Specialist $specialist)
     {
         //
-        return abort(404);
+        $specialist->forceDelete();
+
+        alert()->success('Success Message', 'Successfully deleted specialist');
+        return back();
     }
 }
