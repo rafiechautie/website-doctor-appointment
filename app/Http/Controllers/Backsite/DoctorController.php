@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\AuthGates;
 use App\Http\Requests\Doctor\StoreDoctorRequest;
 use App\Http\Requests\Doctor\UpdateDoctorRequest;
 use App\Models\MasterData\Specialist;
@@ -10,6 +11,8 @@ use App\Models\Operational\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
+use Symfony\Component\HttpFoundation\Response;
 
 class DoctorController extends Controller
 {
@@ -24,7 +27,7 @@ class DoctorController extends Controller
     public function index()
     {
         //
-        // abort_if(Gate::denies('doctor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(AuthGates::denies('doctor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         // for table grid order by descending based on created at
         $doctor = Doctor::orderBy('created_at', 'desc')->get();
@@ -100,7 +103,7 @@ class DoctorController extends Controller
     public function edit(Doctor $doctor)
     {
         //
-        // abort_if(Gate::denies('doctor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('doctor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         // for select2 = ascending a to z
         $specialist = Specialist::orderBy('name', 'asc')->get();

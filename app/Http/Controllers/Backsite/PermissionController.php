@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backsite;
 use App\Http\Controllers\Controller;
 use App\Models\ManagementAccess\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class PermissionController extends Controller
 {

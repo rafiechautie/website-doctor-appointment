@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('permission_roles', function (Blueprint $table) {
+        Schema::table('permission_role', function (Blueprint $table) {
             //
             $table->foreign('permission_id', 'fk_permission_roles_to_permissions')
                 ->references('id')->on('permissions')->onDelete('CASCADE')

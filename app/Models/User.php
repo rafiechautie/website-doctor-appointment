@@ -59,6 +59,12 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    // many to many
+    public function role()
+    {
+        return $this->belongsToMany('App\Models\ManagementAccess\Role');
+    }
+
     //satu user punya satu detail user
     public function detail_users()
     {

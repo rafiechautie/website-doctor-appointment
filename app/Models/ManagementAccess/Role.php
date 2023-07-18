@@ -20,6 +20,17 @@ class Role extends Model
 
     protected $guarded = ['id'];
 
+    // many to many
+    public function user()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function permission()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
     //satu role dimiliki oleh banyak  role users
     public function role_user()
     {

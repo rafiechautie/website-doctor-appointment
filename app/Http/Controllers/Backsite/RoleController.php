@@ -77,7 +77,11 @@ class RoleController extends Controller
         // abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         // need more notes here
+        //load semua permission yang udah masuk ke dalam role maupun yang belum
+        //load semua permission yang ada di table permission
         $permission = Permission::all();
+        //untuk load semua permission yang udah masuk ke dalam role
+        //role load untuk load permission yang ada di tabel pivot permission_role
         $role->load('permission');
 
         return view('pages.backsite.management-access.role.edit', compact('permission', 'role'));
@@ -91,6 +95,7 @@ class RoleController extends Controller
         //
         // need more notes here
         $role->update($request->all());
+        //sync digunakan untuk memasukkan satu persatu data yang diinput user dalam bentuk array ke dalam tabel permission
         $role->permission()->sync($request->input('permission', []));
 
         alert()->success('Success Message', 'Successfully updated role');
@@ -106,6 +111,7 @@ class RoleController extends Controller
         // abort_if(Gate::denies('role_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         // need more notes here
+        //force delete menyebabkan data role yang menjadi foreign key di tabel lain juga akan hilang
         $role->forceDelete();
 
         alert()->success('Success Message', 'Successfully deleted role');

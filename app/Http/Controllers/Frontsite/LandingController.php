@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontsite;
 
 //use library here
 use App\Http\Controllers\Controller;
+use App\Models\MasterData\Specialist;
+use App\Models\Operational\Doctor;
 use Illuminate\Http\Request;
 
 
@@ -28,7 +30,10 @@ class LandingController extends Controller
     public function index()
     {
         //
-        return view('pages.frontsite.landing-page.index');
+        $specialist = Specialist::inRandomOrder()->limit(5)->get();
+        $doctor = Doctor::orderBy('created_at', 'desc')->limit(4)->get();
+
+        return view('pages.frontsite.landing-page.index', compact('doctor', 'specialist'));
     }
 
     /**
