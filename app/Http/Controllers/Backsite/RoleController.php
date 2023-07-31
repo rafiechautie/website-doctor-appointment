@@ -51,7 +51,7 @@ class RoleController extends Controller
         $role = Role::create($data);
 
         alert()->success('Success Message', 'Successfully added new role');
-        return redirect()->route('backsite.role.index');
+        return redirect()->route('/backsite/role');
     }
 
     /**
@@ -99,7 +99,7 @@ class RoleController extends Controller
         $role->permission()->sync($request->input('permission', []));
 
         alert()->success('Success Message', 'Successfully updated role');
-        return redirect()->route('backsite.role.index');
+        return redirect()->route('backsite/role');
     }
 
     /**

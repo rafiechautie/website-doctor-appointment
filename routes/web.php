@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     });
     Route::resource('payment', PaymentController::class);
 
-    Route::resource('register_success', RegisterController::class);
+    // Route::resource('register_success', RegisterController::class);
 });
 
 //kalau udah login, maka bisa akses route yang ada di dalam group ini

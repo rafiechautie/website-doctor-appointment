@@ -50,11 +50,9 @@
             {{-- @can('master_data_access') --}}
                 <li class=" nav-item"><a href="#"><i class="{{ Request::is('backsite/specialist') || Request::is('backsite/specialist/*') || Request::is('backsite/consultation') || Request::is('backsite/consultation/*') || Request::is('backsite/config_payment') || Request::is('backsite/config_payment/*') ? 'bx bx-customize bx-flashing' : 'bx bx-customize' }}"></i><span class="menu-title" data-i18n="Master Data">Master Data</span></a>
                     <ul class="menu-content">
-
                         {{-- @can('specialist_access') --}}
                             <li class="{{ Request::is('backsite/specialist') || Request::is('backsite/specialist/*')  ? 'active' : '' }} ">
-                                <a class="menu-item" href="/backsite/specialist">
-                                    <a class="menu-item" href="">
+                                    <a class="menu-item" href="/backsite/specialist">
                                     <i></i><span>Specialist</span>
                                 </a>
                             </li>
@@ -63,7 +61,6 @@
                         {{-- @can('consultation_access') --}}
                             <li class="{{ Request::is('backsite/consultation') || Request::is('backsite/consultation/*') ? 'active' : '' }} ">
                                 <a class="menu-item" href="/backsite/consultation">
-                                    <a class="menu-item" href="">
                                     <i></i><span>Consultation</span>
                                 </a>
                             </li>
@@ -72,7 +69,6 @@
                         {{-- @can('config_payment_access') --}}
                             <li class="{{ Request::is('backsite/config_payment') || Request::is('backsite/config_payment/*') ? 'active' : '' }} ">
                                 <a class="menu-item" href="/backsite/config_payment">
-                                    <a class="menu-item" href="">
                                     <i></i><span>Config Payment</span>
                                 </a>
                             </li>

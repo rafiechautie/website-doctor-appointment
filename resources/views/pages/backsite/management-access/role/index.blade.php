@@ -41,7 +41,7 @@
             </div>
 
             {{-- add card --}}
-            @can('role_create')
+            {{-- @can('role_create') --}}
                 <div class="content-body">
                     <section id="add-home">
                         <div class="row">
@@ -64,7 +64,7 @@
                                     <div class="card-content collapse hide">
                                         <div class="card-body card-dashboard">
 
-                                            <form class="form form-horizontal" action="{{ route('backsite.role.store') }}" method="POST" enctype="multipart/form-data">
+                                            <form class="form form-horizontal" action="/backsite/role" method="POST" enctype="multipart/form-data">
 
                                                 @csrf
 
@@ -101,10 +101,10 @@
                         </div>
                     </section>
                 </div>
-            @endcan
+            {{-- @endcan --}}
 
             {{-- table card --}}
-            @can('role_table')
+            {{-- @can('role_table') --}}
                 <div class="content-body">
                     <section id="table-home">
                         <!-- Zero configuration table -->
@@ -133,7 +133,7 @@
                                                             <th>Date</th>
                                                             <th>Role</th>
                                                             <th>Permission</th>
-                                                            <th style="text-align:center; width:150px;">Action</th>
+                                                                <th style="text-align:center; width:150px;">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -147,30 +147,31 @@
                                                                     <div class="btn-group mr-1 mb-1">
                                                                         <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                                                                         <div class="dropdown-menu">
-                                                                            @can('role_show')
+                                                                            {{-- @can('role_show') --}}
                                                                                 <a href="#mymodal"
-                                                                                    data-remote="{{ route('backsite.role.show', $role_item->id) }}"
+                                                                                    data-remote="/backsite/role/{{ $role_item->id }}"
                                                                                     data-toggle="modal"
                                                                                     data-target="#mymodal"
                                                                                     data-title="Role Detail"
                                                                                     class="dropdown-item">
                                                                                     Show
                                                                                 </a>
-                                                                            @endcan
-                                                                            @can('role_edit')
-                                                                                <a class="dropdown-item" href="{{ route('backsite.role.edit', $role_item->id) }}">
+                                                                            {{-- @endcan --}}
+                                                                            {{-- @can('role_edit') --}}
+                                                                                <a class="dropdown-item" href="/backsite/role/{{ $role_item->id }}/edit">
                                                                                     Edit
                                                                                 </a>
-                                                                            @endcan
+                                                                            {{-- @endcan --}}
 
+                                                                            {{-- bikin super admin dan admin tidak bisa delete datanya  --}}
                                                                             @if($role_item->id > 3)
-                                                                                @can('role_delete')
-                                                                                    <form action="{{ route('backsite.role.destroy', $role_item->id) }}" method="POST" onsubmit="return confirm('Are you sure want to delete this data ?');">
+                                                                                {{-- @can('role_delete') --}}
+                                                                                    <form action="/backsite/role/destroy/{{ $role_item->id }}" method="POST" onsubmit="return confirm('Are you sure want to delete this data ?');">
                                                                                         <input type="hidden" name="_method" value="DELETE">
                                                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                                         <input type="submit" class="dropdown-item" value="Delete">
                                                                                     </form>
-                                                                                @endcan
+                                                                                {{-- @endcan --}}
                                                                             @endif
 
                                                                         </div>
@@ -199,7 +200,7 @@
                         </div>
                     </section>
                 </div>
-            @endcan
+            {{-- @endcan --}}
 
         </div>
     </div>

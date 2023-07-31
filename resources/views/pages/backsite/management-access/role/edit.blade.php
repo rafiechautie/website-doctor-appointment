@@ -61,7 +61,7 @@
                                         <div class="card-text">
                                             <p>Please complete the input <code>required</code>, before you click the submit button.</p>
                                         </div>
-                                        <form class="form form-horizontal" action="{{ route("backsite.role.update", [$role->id]) }}" method="POST" enctype="multipart/form-data">
+                                        <form class="form form-horizontal" action="/backsite/role/{{ $role->id }}" method="POST" enctype="multipart/form-data">
 
                                                 @method('PUT')
                                                 @csrf
@@ -108,7 +108,7 @@
                                                 </div>
 
                                                 <div class="form-actions text-right">
-                                                    <a href="{{ route('backsite.role.index') }}" style="width:120px;" class="btn bg-blue-grey text-white mr-1" onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
+                                                    <a href="/backsite/role" style="width:120px;" class="btn bg-blue-grey text-white mr-1" onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
                                                         <i class="ft-x"></i> Cancel
                                                     </a>
                                                     <button type="submit" style="width:120px;" class="btn btn-cyan" onclick="return confirm('Are you sure want to save this data ?')">

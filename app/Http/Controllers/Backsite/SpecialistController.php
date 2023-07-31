@@ -20,7 +20,7 @@ class SpecialistController extends Controller
     public function index()
     {
         //
-        abort_if(Gate::denies('specialist_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('specialist_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         //mengambil seluruh data bedasarkan created at dan ditampilkannya descending
         $specialist = Specialist::orderBy('created_at', 'desc')->get();
@@ -80,7 +80,7 @@ class SpecialistController extends Controller
     public function show(Specialist $specialist)
     {
         //
-        abort_if(Gate::denies('specialist_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('specialist_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
 
         return view('pages.backsite.master-data.specialist.show', compact('specialist'));
@@ -92,7 +92,7 @@ class SpecialistController extends Controller
     public function edit(Specialist $specialist)
     {
         //
-        abort_if(Gate::denies('specialist_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('specialist_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('pages.backsite.master-data.specialist.edit', compact('specialist'));
     }
@@ -132,7 +132,7 @@ class SpecialistController extends Controller
     public function destroy(Specialist $specialist)
     {
         //
-        abort_if(Gate::denies('specialist_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('specialist_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $specialist->forceDelete();
 

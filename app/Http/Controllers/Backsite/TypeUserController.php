@@ -19,7 +19,7 @@ class TypeUserController extends Controller
     public function index()
     {
         //
-        abort_if(Gate::denies('type_user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('type_user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         /**
          * untuk mengambil data pertama bisa pakek limit atau first
@@ -48,7 +48,7 @@ class TypeUserController extends Controller
         //ambil seluruh data di dalam model TypeUser
         $type_user = TypeUser::all();
 
-        return view('pages.backsite.management-access.type-user.index', compact('type_user'));
+        return view('pages.backsite.management-access.user-type.index', compact('type_user'));
     }
 
     /**

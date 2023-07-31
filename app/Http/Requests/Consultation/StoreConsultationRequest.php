@@ -12,7 +12,7 @@ class StoreConsultationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        abort_if(Gate::denies('consultation_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('consultation_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }

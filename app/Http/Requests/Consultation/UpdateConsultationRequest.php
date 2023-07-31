@@ -11,7 +11,7 @@ class UpdateConsultationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        abort_if(Gate::denies('consultation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('consultation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
